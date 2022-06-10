@@ -1,0 +1,22 @@
+{
+  "name": "ls_js101_programming_foundations_with_js",
+  "version": "1.0.0",
+  "description": "Work related to Launch School's course JS101_programming_foundations_with_JS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wbkdef/LS_JS101_programming_foundations_with_JS.git"
+  },
+  "author": "Willem Bruce Krayenhoff",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wbkdef/LS_JS101_programming_foundations_with_JS/issues"
+  },
+  "homepage": "https://github.com/wbkdef/LS_JS101_programming_foundations_with_JS#readme",
+  "dependencies": {
+    "readline-sync": "^1.4.10"
+  }
+}
