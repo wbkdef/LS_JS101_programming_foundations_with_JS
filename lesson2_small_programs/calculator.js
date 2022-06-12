@@ -39,28 +39,28 @@ while (!['1', '2', '3', '4'].includes(operation)) {
 }
 
 let output;
-if (operation === '1') {  // 1 indicates addition
-  output = n1 + n2;
-} else if (operation === '2') {  // 2 indicates substraction
-  output = n1 - n2;
-} else if (operation === '3') {  // 3 indicates multiplication
-  output = n1 * n2;
-} else if (operation === '4') {  // 4 indicates division
-  output = n1 / n2;
-}
+// if (operation === '1') {  // 1 indicates addition
+//   output = n1 + n2;
+// } else if (operation === '2') {  // 2 indicates substraction
+//   output = n1 - n2;
+// } else if (operation === '3') {  // 3 indicates multiplication
+//   output = n1 * n2;
+// } else if (operation === '4') {  // 4 indicates division
+//   output = n1 / n2;
+// }
 
 switch (operation) {
   case '1':
-    output = n1 + n2;
+    output = n1 + n2;  // 1 indicates addition
     break;
   case '2':
-    output = n1 - n2;
+    output = n1 - n2;  // 2 indicates substraction
     break;
   case '3':
-    output = n1 * n2;
+    output = n1 * n2;  // 3 indicates multiplication
     break;
   case '4':
-    output = n1 / n2;
+    output = n1 / n2;  // 4 indicates division
     break;
   default:
     throw new Error(`Unexpected input ${operation}`);

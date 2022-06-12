@@ -1,9 +1,9 @@
 console.log(`\n ddaaiillyy ddoouubbllee`);
 // Iterate through the string
 // Keep track of the last character
-// If the current character is different from the last character, 
-  // update the last character to it and 
-  // add this character to an output array.
+// If the current character is different from the last character,
+//   update the last character to it and
+//   add this character to an output array.
 // At the end, join all characters in the output array into a string and return
 
 function crunch(s) {

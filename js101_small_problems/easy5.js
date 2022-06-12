@@ -6,20 +6,20 @@ console.log(`\n Cute Angles`);
 // Get minutes from the remainder times 60 rounded down
 // Get seconds from the remainder of previous times 60 rounded down
 function dms(angle) {
-  const degrees = Math.floor(angle)
-  let remainder = angle - degrees
-  const minutes = Math.floor(remainder*60)
-  remainder = remainder*60 - minutes
-  const seconds = Math.floor(remainder*60)
-  return `${degrees}°${minutes}'${seconds}`
+  const degrees = Math.floor(angle);
+  let remainder = angle - degrees;
+  const minutes = Math.floor(remainder*60);
+  remainder = remainder*60 - minutes;
+  const seconds = Math.floor(remainder*60);
+  return `${degrees}°${minutes}'${seconds}`;
 }
 
-console.log(dms(30));;           // 30°00'00"
-console.log(dms(76.73));;        // 76°43'48"
-console.log(dms(254.6));;        // 254°35'59"
-console.log(dms(93.034773));;    // 93°02'05"
-console.log(dms(0));;            // 0°00'00"
-console.log(dms(360));;          // 360°00'00" or 0°00'00"
+console.log(dms(30));           // 30°00'00"
+console.log(dms(76.73));        // 76°43'48"
+console.log(dms(254.6));        // 254°35'59"
+console.log(dms(93.034773));    // 93°02'05"
+console.log(dms(0));            // 0°00'00"
+console.log(dms(360));          // 360°00'00" or 0°00'00"
 
 
 console.log(`\n Combining Arrays`);
@@ -51,7 +51,12 @@ console.log(`\n Find the Duplicate`);
 // Add elements from the array to a set
   // Each time check if the elt is already in the set
   // If it is, return that elements
-function findDup(arr) {
+/**
+ * Documentation
+ * @param {Array} arr Array of numbers with a single duplicate
+ * @returns {Number} - The duplicate number from the array
+ */
+  function findDup(arr) {
   const s = new Set();
   for (const el of arr) {
     if (s.has(el)) {
