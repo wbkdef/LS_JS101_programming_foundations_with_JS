@@ -12,14 +12,32 @@ function prompt(message) {
   console.log(`=> ${message}`);
 }
 
+/**
+ * @param {String} choice 
+ * @param {String} computerChoice 
+ * @returns "tie" | "you" | "computer"
+ */
+function getWinner(choice, computerChoice) {
+  if (choice === computerChoice) {
+    return "tie";
+  } else if (whatBeatsWhat[choice].includes(computerChoice)) {
+    return "you";
+  } else if (whatBeatsWhat[computerChoice].includes(choice)) {
+    return "computer";
+  } else {
+    throw Error(`UNFORSEEN COMBINATION.  IS AN INPUT INVALID? choice:${choice} computerChoice:${computerChoice}`);
+  }
+}
+
 function displayWinner(choice, computerChoice) {
   prompt(`You chose ${choice}, computer chose ${computerChoice}`);
+  const winner = getWinner(choice, computerChoice);
 
-  if (choice === computerChoice) {
+  if (winner === "tie") {
     prompt("It's a tie!");
-  } else if (whatBeatsWhat[choice].includes(computerChoice)) {
+  } else if (winner === "you") {
     prompt('You win!');
-  } else if (whatBeatsWhat[computerChoice].includes(choice)) {
+  } else if (winner === "computer") {
     prompt('Computer wins!');
   } else {
     prompt("UNFORSEEN COMBINATION.  IS AN INPUT INVALID?");
@@ -40,11 +58,23 @@ function getValidChoice() {
   }
 }
 
+let tallys = {tie: 0, you: 0, computer: 0}
 while (true) {
   const choice = getValidChoice();
 
   let randomIndex = Math.floor(Math.random() * VALID_CHOICES.length);
   let computerChoice = VALID_CHOICES[randomIndex];
+
+  const winner = getWinner(choice, computerChoice);
+  tallys[winner] += 1;
+  console.log(`So far, You won ${tallys.you} games, the computer won ${tallys.computer} games`);
+  if (tallys.you >= 3) {
+    prompt("YOU ARE THE GRAND WINNER! (best of 5 games)");
+    break;
+  } else if (tallys.computer >= 3) {
+    prompt("THE COMPUTER IS THE GRAND WINNER! (best of 5 games)");
+    break;
+  }
 
   displayWinner(choice, computerChoice);
 
