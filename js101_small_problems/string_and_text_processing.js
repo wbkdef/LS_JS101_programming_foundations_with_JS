@@ -1,7 +1,7 @@
 
 console.log(`\n Uppercase Check - https://launchschool.com/exercises/59cd044d`);
 /**
- * @param {String} str 
+ * @param {String} str
  * @returns Whether all alphabetic characters are upper case
  */
 function isUppercase(str) {

@@ -13,8 +13,8 @@ function prompt(message) {
 }
 
 /**
- * @param {String} choice 
- * @param {String} computerChoice 
+ * @param {String} choice
+ * @param {String} computerChoice
  * @returns "tie" | "you" | "computer"
  */
 function getWinner(choice, computerChoice) {
@@ -58,7 +58,7 @@ function getValidChoice() {
   }
 }
 
-let tallys = {tie: 0, you: 0, computer: 0}
+let tallys = {tie: 0, you: 0, computer: 0};
 while (true) {
   const choice = getValidChoice();
 
