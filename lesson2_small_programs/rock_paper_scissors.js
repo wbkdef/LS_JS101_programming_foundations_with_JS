@@ -14,16 +14,14 @@ function prompt(message) {
 function displayWinner(choice, computerChoice) {
   prompt(`You chose ${choice}, computer chose ${computerChoice}`);
 
-  if ((choice === 'rock' && computerChoice === 'scissors') ||
-      (choice === 'paper' && computerChoice === 'rock') ||
-      (choice === 'scissors' && computerChoice === 'paper')) {
+  if (choice === computerChoice) {
+    prompt("It's a tie!");
+  } else if (whatBeatsWhat[choice].includes(computerChoice)) {
     prompt('You win!');
-  } else if ((choice === 'rock' && computerChoice === 'paper') ||
-             (choice === 'paper' && computerChoice === 'scissors') ||
-             (choice === 'scissors' && computerChoice === 'rock')) {
+  } else if (whatBeatsWhat[computerChoice].includes(choice)) {
     prompt('Computer wins!');
   } else {
-    prompt("It's a tie!");
+    prompt("UNFORSEEN COMBINATION.  IS AN INPUT INVALID?");
   }
 }
 
