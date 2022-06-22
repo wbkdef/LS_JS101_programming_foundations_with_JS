@@ -65,3 +65,94 @@ console.log(xor(5, 0) === true);
 console.log(xor(false, true) === true);
 console.log(xor(1, 1) === false);
 console.log(xor(true, true) === false);
+
+
+console.log(`\n ============= Odd Lists ============= `);
+function oddities(arr) {
+  return arr.filter((val, ind) => ind % 2 === 0)
+}
+console.log(oddities([2, 3, 4, 5, 6])); // logs [2, 4, 6]
+console.log(oddities([1, 2, 3, 4, 5, 6])); // logs [1, 3, 5]
+console.log(oddities(["abc", "def"])); // logs ['abc']
+console.log(oddities([123])); // logs [123]
+console.log(oddities([])); // logs []
+
+
+console.log(`\n ============= Convert a String to a Number! ============= `);
+const CHARS_TO_INTS = {
+  0: 0,
+  1: 1,
+  2: 2,
+  3: 3,
+  4: 4,
+  5: 5,
+  6: 6,
+  7: 7,
+  8: 8,
+  9: 9,
+};
+function stringToInteger(str) {
+  return str.split('').reduce((pv, cv) => pv * 10 + CHARS_TO_INTS[cv], 0);
+}
+console.log(stringToInteger("4321") === 4321); // logs true
+console.log(stringToInteger("570") === 570); // logs true
+
+
+console.log(`\n ============= Convert a String to a Signed Number! ============= `);
+function stringToSignedInteger(str) {
+  if (str.startsWith('-')) {
+    return -stringToInteger(str.slice(1));
+  } else if (str.startsWith('+')) {
+    return stringToInteger(str.slice(1));
+  } else {
+    return stringToInteger(str);
+  }
+}
+console.log(stringToSignedInteger("4321") === 4321); // logs true
+console.log(stringToSignedInteger("-570") === -570); // logs true
+console.log(stringToSignedInteger("+100") === 100); // logs true
+
+
+console.log(`\n ============= Convert a Number to a String! ============= `);
+const DIGITS_TO_STRS = {
+  0: '0',
+  1: '1',
+  2: '2',
+  3: '3',
+  4: '4',
+  5: '5',
+  6: '6',
+  7: '7',
+  8: '8',
+  9: '9',
+};
+// Keep getting the remainder when dividing by 10 and pushing into an array
+// In between, divide by 10 and take the floor
+// Then reverse, convert to strings, and join.
+function integerToString(int) {
+  let chars = [];
+  do {
+    chars.push(DIGITS_TO_STRS[int % 10]);
+    int = Math.floor(int / 10);
+  } while (int);
+  return chars.reverse().join('');
+}
+console.log(integerToString(4321));        // "4321"
+console.log(integerToString(0));           // "0"
+console.log(integerToString(5000));        // "5000"
+console.log(integerToString(1234567890));  // "1234567890"
+
+
+console.log(`\n ============= Convert a Signed Number to a String! ============= `);
+function signedIntegerToString(int) {
+  if (int > 0) {
+    return '+' + integerToString(int);
+  } else if (int < 0) {
+    return '-' + integerToString(-int);
+  } else {
+    return '0';
+  }
+}
+console.log(signedIntegerToString(4321) === "+4321");
+console.log(signedIntegerToString(-123) === "-123");
+console.log(signedIntegerToString(0) === "0");

@@ -141,3 +141,52 @@ function swapCase(string) {
 
 console.log(swapCase('CamelCase'));              // "cAMELcASE"
 console.log(swapCase('Tonight on XYZ-TV'));      // "tONIGHT ON xyz-tv"
+
+
+console.log(`\n Staggered Caps (Part 1) - https://launchschool.com/exercises/3b0a4549`);
+// Q:  Write a function that takes a string as an argument and returns that
+// string with a staggered capitalization scheme.Every other character,
+// starting from the first, should // be capitalized and should be followed
+// by a lowercase or non - alphabetic character.  Non - alphabetic characters
+// should not be changed, but should be counted as characters
+// for determining when to switch between upper and lower case.
+
+// P:
+// Every 2nd char starting from the first should be capitalized, if alphabetic.
+// Every 2nd char starting from the second should be lower cased, if alphabetic.
+
+// E:
+// staggeredCase('I Love Launch School!');        // "I LoVe lAuNcH ScHoOl!"
+// staggeredCase('ALL_CAPS');                     // "AlL_CaPs"
+// staggeredCase('ignore 77 the 4444 numbers');   // "IgNoRe 77 ThE 4444 nUmBeRs"
+// staggeredCase('');   // ""
+// staggeredCase('r');   // "R"
+
+// D/A:
+// Input as a string
+// Build an array, where capitalize/lowercase if index is even/odd
+
+// C:
+function staggeredCase(str) {
+  return str
+    .split('')
+    .map((char, ind) => ind % 2 === 0 ? char.toUpperCase() : char.toLowerCase())
+    .join('');
+}
+
+console.log(staggeredCase('I Love Launch School!'));        // "I LoVe lAuNcH ScHoOl!"
+console.log(staggeredCase('ALL_CAPS'));                     // "AlL_CaPs"
+console.log(staggeredCase('ignore 77 the 4444 numbers'));   // "IgNoRe 77 ThE 4444 nUmBeRs"
+console.log(staggeredCase(''));   // ""
+console.log(staggeredCase('r'));   // "R"
+
+// P:
+//   input: p
+//   output: 
+//   Rules:
+//     Explicit:
+//       - 
+//       - 
+//     Implicit:
+//       - RULE1
+//       - RULE2

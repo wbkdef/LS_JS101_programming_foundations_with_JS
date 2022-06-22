@@ -132,3 +132,136 @@ function leadingSubstrings(str) {
 console.log(leadingSubstrings('abc'));      // ["a", "ab", "abc"]
 console.log(leadingSubstrings('a'));        // ["a"]
 console.log(leadingSubstrings('xyzzy'));    // ["x", "xy", "xyz", "xyzz", "xyzzy"]
+
+
+console.log(`\n ----------------- All Substrings -----------------`);
+// https://launchschool.com/exercises/381f7129
+// Recursive
+// Get all leadingSubstrings
+// Recursively call without the first character
+// Concatenate the results
+// Implicit requirements:
+//    don't return empty string.
+//    It looks like can include the same substring several times
+function substrings(str) {
+  if (str.length === 0) {
+    return [];
+  }
+  return leadingSubstrings(str).concat(substrings(str.slice(1)));
+}
+
+console.log(substrings('abcde'));
+
+// returns
+// ["a", "ab", "abc", "abcd", "abcde",
+//   "b", "bc", "bcd", "bcde",
+//   "c", "cd", "cde",
+//   "d", "de",
+//   "e"]
+
+
+console.log(`\n ----------------- Palindromic Substrings -----------------`);
+function isPalindrome(str) {
+  return str === str.split('').reverse().join('');
+}
+function palindromes(str) {
+  return substrings(str)
+    .filter(subStr => subStr.length > 1 && isPalindrome(subStr));
+}
+
+console.log(palindromes('abcd'));       // []
+console.log(palindromes('madam'));      // [ "madam", "ada" ]
+
+console.log(palindromes('hello-madam-did-madam-goodbye'));
+// returns
+// [ "ll", "-madam-", "-madam-did-madam-", "madam", "madam-did-madam", "ada",
+//   "adam-did-mada", "dam-did-mad", "am-did-ma", "m-did-m", "-did-", "did",
+//   "-madam-", "madam", "ada", "oo" ]
+
+console.log(palindromes('knitting cassettes'));
+// returns
+// [ "nittin", "itti", "tt", "ss", "settes", "ette", "tt" ]
+
+
+console.log(`\n ----------------- Sum of Sums -----------------`);
+function sumOfSums(arr) {
+  if (arr.length === 1) {
+    return arr[0];
+  }
+  return arr.reduce((pv, cv) => pv + cv, 0)
+    + sumOfSums(arr.slice(0, -1));
+}
+console.log(sumOfSums([3, 5, 2]));        // (3) + (3 + 5) + (3 + 5 + 2) --> 21
+console.log(sumOfSums([1, 5, 7, 3]));     // (1) + (1 + 5) + (1 + 5 + 7) + (1 + 5 + 7 + 3) --> 36
+console.log(sumOfSums([4]));              // 4
+console.log(sumOfSums([1, 2, 3, 4, 5]));  // 35
+
+
+console.log(`\n ----------------- Grocery List -----------------`);
+function buyFruit(shoppingList) {
+  let ret = [];
+  for (const [item, quantity] of shoppingList) {
+    ret.push(...Array(quantity).fill(item));
+  }
+  return ret;
+}
+// function buyFruit(shoppingList) {
+//   return [].concat(...shoppingList.map(itemQuantity => Array(itemQuantity[1]).fill(itemQuantity[0])));
+// }
+// function buyFruit(shoppingList) {
+//   return shoppingList
+//     .map(itemQuantity => Array(itemQuantity[1]).fill(itemQuantity[0]))
+//     .flat();
+// }
+console.log(buyFruit([['apple', 3], ['orange', 1], ['banana', 2]]));
+// returns ["apple", "apple", "apple", "orange", "banana", "banana"]
+
+
+console.log(`\n ----------------- Inventory Item Transactions -----------------`);
+function transactionsFor(id, transactions) {
+  return transactions.filter(trans => trans.id === id);
+}
+let transactions = [
+  { id: 101, movement: 'in', quantity: 5 },
+  { id: 105, movement: 'in', quantity: 10 },
+  { id: 102, movement: 'out', quantity: 17 },
+  { id: 101, movement: 'in', quantity: 12 },
+  { id: 103, movement: 'out', quantity: 20 },
+  { id: 102, movement: 'out', quantity: 15 },
+  { id: 105, movement: 'in', quantity: 25 },
+  { id: 101, movement: 'out', quantity: 18 },
+  { id: 102, movement: 'in', quantity: 22 },
+  { id: 103, movement: 'out', quantity: 15 },
+];
+const util = require('util');
+console.log(
+  util.inspect(transactionsFor(101, transactions),
+    { showHidden: false, depth: null, colors: true }));
+
+// returns
+// [ { id: 101, movement: "in",  quantity:  5 },
+//   { id: 101, movement: "in",  quantity: 12 },
+//   { id: 101, movement: "out", quantity: 18 }, ]
+
+
+console.log(`\n ----------------- Inventory Item Availability -----------------`);
+function isItemAvailable(id, transactions) {
+  const nAvailable = transactionsFor(id, transactions)
+    .map(trans => (trans.movement === 'in' ? 1 : -1) * trans.quantity)
+    .reduce((pv, cv) => pv + cv, 0);
+  return nAvailable > 0;
+}
+transactions = [{ id: 101, movement: 'in', quantity: 5 },
+{ id: 105, movement: 'in', quantity: 10 },
+{ id: 102, movement: 'out', quantity: 17 },
+{ id: 101, movement: 'in', quantity: 12 },
+{ id: 103, movement: 'out', quantity: 20 },
+{ id: 102, movement: 'out', quantity: 15 },
+{ id: 105, movement: 'in', quantity: 25 },
+{ id: 101, movement: 'out', quantity: 18 },
+{ id: 102, movement: 'in', quantity: 22 },
+{ id: 103, movement: 'out', quantity: 15 },];
+
+console.log(isItemAvailable(101, transactions));     // false
+console.log(isItemAvailable(103, transactions));     // false
+console.log(isItemAvailable(105, transactions));     // true

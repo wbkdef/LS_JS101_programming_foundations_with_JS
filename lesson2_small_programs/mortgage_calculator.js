@@ -19,6 +19,8 @@ const readLineSync = require('readline-sync');
 // Cover the case of 0% interest
 
 function getNumber(prompt) {
+  // console.clear();
+  console.log();
   let num = readLineSync.question(prompt);
   while (num.trim() === '' || Number.isNaN(Number(num))) {
     console.log(`Unable to convert [[${num}]] to a number, please try again`);
