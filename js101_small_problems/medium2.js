@@ -173,3 +173,311 @@ console.log(triangle2(30, 90, 60));       // "right"
 console.log(triangle2(120, 50, 10));      // "obtuse"
 console.log(triangle2(0, 90, 90));        // "invalid"
 console.log(triangle2(50, 50, 50));       // "invalid"
+
+
+console.log(`\n --------------- Unlucky Days --------------- `);
+// __PEDAC__, as per:
+// * https://launchschool.com/lessons/60e10aa5/assignments/73c01de6
+// * https://medium.com/launch-school/solving-coding-problems-with-pedac-29141331f93f
+// __P__:
+//   input: int (The year)
+//   output: int (The # of Fri. 13ths in that year)
+//   signature: fridayThe13ths(year) => n13ths
+//   Rules:
+//     Explicit:
+//       - Can assume the Gregorian calendar
+//       - 
+//     Implicit:
+//       - RULE1
+//       - RULE2
+// __E__:
+//   *Given*
+// __D/A__ - Pseudocode for the data structures and algorithms to use:
+//   Create a date for the 13th of each month of the year
+//   Check if it is a Friday, and if so increment a counter
+//   Return the counter
+function fridayThe13ths(year) {
+  let nFri = 0;
+  for (let month = 0; month < 12; month++) {
+    let date = new Date(year, month, 13);
+    if (date.toString().slice(0, 3) === 'Fri') {
+      nFri += 1;
+    }
+    // console.log(date.toString().slice(0, 3));
+    // console.log(date);
+  }
+  return nFri;
+}
+
+console.log(fridayThe13ths(1986));      // 1
+console.log(fridayThe13ths(2015));      // 3
+console.log(fridayThe13ths(2017));      // 2
+
+
+console.log(`\n --------------- Next Featured Number Higher than a Given Value --------------- `);
+// __PEDAC__, as per:
+// * https://launchschool.com/lessons/60e10aa5/assignments/73c01de6
+// * https://medium.com/launch-school/solving-coding-problems-with-pedac-29141331f93f
+// __P__:
+//   input: int
+//   output: The next integer greater than the input that is a featured number
+//   signature: featured(num) => num
+//   Rules:
+//     Explicit:
+//       - A featured number is:
+//          - A multiple of 7
+//          - An odd number
+//          - Has no repeated digits
+//       - Return an error message if there's no next feature number
+//          - The largest possible featured number is 9876543201.
+//          - ** I assume this means return a string error message.
+//     Implicit:
+//       - RULE1
+//       - RULE2
+// __E__:
+//   *Given*
+// __D/A__ - Pseudocode for the data structures and algorithms to use:
+//   Create a function to detect if a number is a featured number
+//   Iterate a proposed number from the current number + 1 until the feature number fcn returns true, then return that number.
+
+function hasNoRepeatedDigits(num) {
+  const ns = num.toString();
+  return ns.length === (new Set(ns)).size;
+}
+// console.log(hasNoRepeatedDigits(23));
+// console.log(hasNoRepeatedDigits(24));
+// console.log(hasNoRepeatedDigits(22));
+
+function isFeaturedNumber(num) {
+  return num % 7 === 0 && num % 2 === 1 && hasNoRepeatedDigits(num);
+}
+// console.log(isFeaturedNumber(7));  // is a featured number
+// console.log(isFeaturedNumber(14));  // is a featured number
+// console.log(isFeaturedNumber(21));  // is a featured number
+// console.log(isFeaturedNumber(49));  // is a featured number
+// console.log(isFeaturedNumber(98));  // is not(it is not odd),
+// console.log(isFeaturedNumber(97));  // is not(it is not a multiple of 7), and
+// console.log(isFeaturedNumber(133));  // is not(the digit 3 appears twice).
+
+function featured(num) {
+  if (num >= 9876543201) {
+    return "There is no possible number that fulfills those requirements.";
+  }
+  while (true) {
+    num += 1;
+    if (isFeaturedNumber(num)) {
+      return num;
+    }
+  }
+}
+
+console.log(featured(12));           // 21
+console.log(featured(20));           // 21
+console.log(featured(21));           // 35
+console.log(featured(997));          // 1029
+console.log(featured(1029));         // 1043
+// console.log(featured(999999));       // 1023547
+// console.log(featured(999999987));    // 1023456987
+// console.log(featured(9876543186));   // 9876543201
+// console.log(featured(9876543200));   // 9876543201
+// console.log(featured(9876543201));   // "There is no possible number that fulfills those requirements."
+
+
+console.log(`\n --------------- Sum Square - Square Sum --------------- `);
+
+// __PEDAC__, as per:
+// * https://launchschool.com/lessons/60e10aa5/assignments/73c01de6
+// * https://medium.com/launch-school/solving-coding-problems-with-pedac-29141331f93f
+// __P__:
+//   input: positive num
+//   output: num (diff)
+//   signature: sumSquareDifference(num) => diff
+//   Rules:
+//     Explicit:
+//       - retunr the difference between 
+//            1) the square of all numbers up to and including that number and 
+//            2) the sum of the squares of all numbers up to and including that number
+//       - i.e. sumSquareDifference(3) => 22 === (1 + 2 + 3)**2 - (1**2 + 2**2 + 3**2)
+//     Implicit:
+//       - The input, num, is a non-negative integer
+//       - if 0, return 0
+// __E__:
+//   *Given*
+// __D/A__ - Pseudocode for the data structures and algorithms to use:
+//   Create 2 functions to:
+//      Calculate the sum of the first `num` numbers
+//      Calculate the sum of the first `num` numbers squared
+//
+//   RESTART
+//      Create function sumFirstToPow(num, pow)
+//      Return:  sumFirstToPow(num, 1) ** 2 - sumFirstToPow(num, 2)
+
+function sumFirstNumsToPow(num, pow) {
+  let sum = 0;
+  for (let ind = 1; ind <= num; ind++) {
+    sum += ind ** pow;
+  }
+  return sum;
+}
+// console.log(sumFirstNumsToPow(3, 1));  // 6
+// console.log(sumFirstNumsToPow(3, 2));  // 14
+
+function sumSquareDifference(num) {
+  return (sumFirstNumsToPow(num, 1) ** 2) - sumFirstNumsToPow(num, 2);
+}
+
+console.log(sumSquareDifference(3));      // 22 --> (1 + 2 + 3)**2 - (1**2 + 2**2 + 3**2)
+console.log(sumSquareDifference(10));     // 2640
+console.log(sumSquareDifference(1));      // 0
+console.log(sumSquareDifference(100));    // 25164150
+
+
+console.log(`\n --------------- Bubble Sort --------------- `);
+// __PEDAC__, as per:
+// * https://launchschool.com/lessons/60e10aa5/assignments/73c01de6
+// * https://medium.com/launch-school/solving-coding-problems-with-pedac-29141331f93f
+// __P__:
+//   input: Array
+//   output: Nothing (Array sorted in place)
+//   signature: bubbleSort(Array) => undefined
+//   Rules:
+//     Explicit:
+//       - Do bubble sort
+//       - Sort in place
+//     Implicit:
+//       - Returns undefined
+// __E__:
+//   *Given*
+// __D/A__ - Pseudocode for the data structures and algorithms to use:
+//   Given by the problem
+//   Outer do-while loop, that keeps track of if any changes made
+//      and terminates if not
+//   Inner for loop iterates through the entire array from start to finish,
+//      swapping pairs if not ordered
+
+function bubbleSort(arr) {
+  let swapMade;
+  do {
+    swapMade = false;
+    for (let ind = 0; ind < arr.length - 1; ind++) {
+      if (arr[ind] > arr[ind + 1]) {
+        [arr[ind], arr[ind + 1]] = [arr[ind + 1], arr[ind]];
+        swapMade = true;
+      }
+    }
+  } while (swapMade);
+}
+
+let array1 = [5, 3];
+bubbleSort(array1);
+console.log(array1);    // [3, 5]
+
+let array2 = [6, 2, 7, 1, 4];
+bubbleSort(array2);
+console.log(array2);    // [1, 2, 4, 6, 7]
+
+let array3 = ['Sue', 'Pete', 'Alice', 'Tyler', 'Rachel', 'Kim', 'Bonnie'];
+bubbleSort(array3);
+console.log(array3);    // ["Alice", "Bonnie", "Kim", "Pete", "Rachel", "Sue", "Tyler"]
+
+
+console.log(`\n --------------- Longest Sentence --------------- `);
+// __PEDAC__, as per:
+// * https://launchschool.com/lessons/60e10aa5/assignments/73c01de6
+// * https://medium.com/launch-school/solving-coding-problems-with-pedac-29141331f93f
+// __P__:
+//   input: str
+//   output: None (but log the longest sentence and its word count)
+//   signature: longestSentence(str) => undefined (stuff logged)
+//   Rules:
+//     Explicit:
+//       - Sentences can end in any of ".?!"
+//       - Print the longest sentence (based on word count)
+//          - Words are anything delimited by spaces
+//       - When print the sentence, include its punctuation
+//       - Print also the word count of the longest sentence
+//     Implicit:
+//       - RULE1
+//       - RULE2
+// __E__:
+//   *Given*
+// __D/A__ - Pseudocode for the data structures and algorithms to use:
+//   See if can Regex match all the sentences, then compare them for length.
+//   PSEUDO_CODE_HERE
+
+function longestSentence(str) {
+  const matches = str.match(/\S[^\.\?!]+./g);
+  console.log(matches);
+  const lengths = matches.map(sentence => sentence.split(' ').length);
+  console.log(lengths);
+  let nWords = Math.max(...lengths);
+  console.log(matches[lengths.indexOf(nWords)]);
+  console.log(`The longest sentence has ${nWords} words.`);
+}
+
+longestSentence("Where do you think you're going. What's up, Doc?");
+// Where do you think you're going?
+//
+// The longest sentence has 6 words.
+
+longestSentence("To be or not to be! Is that the question?");
+// To be or not to be!
+//
+// The longest sentence has 6 words.
+
+let longText =
+  'Four score and seven years ago our fathers brought forth on this ' +
+  'continent a new nation, conceived in liberty, and dedicated to the ' +
+  'proposition that all men are created equal. Now we are engaged in a ' +
+  'great civil war, testing whether that nation, or any nation so ' +
+  'conceived and so dedicated, can long endure. We are met on a great ' +
+  'battlefield of that war. We have come to dedicate a portion of that ' +
+  'field, as a final resting place for those who here gave their lives ' +
+  'that that nation might live. It is altogether fitting and proper that ' +
+  'we should do this.';
+
+let longerText = longText +
+  'But, in a larger sense, we can not dedicate, we can not consecrate, ' +
+  'we can not hallow this ground. The brave men, living and dead, who ' +
+  'struggled here, have consecrated it, far above our poor power to add ' +
+  'or detract. The world will little note, nor long remember what we say ' +
+  'here but it can never forget what they did here. It is for us the ' +
+  'living, rather, to be dedicated here to the unfinished work which ' +
+  'they who fought here have thus far so nobly advanced. It is rather ' +
+  'for us to be here dedicated to the great task remaining before us -- ' +
+  'that from these honored dead we take increased devotion to that ' +
+  'cause for which they gave the last full measure of devotion -- that ' +
+  'we here highly resolve that these dead shall not have died in vain ' +
+  '-- that this nation, under God, shall have a new birth of freedom -- ' +
+  'and that government of the people, by the people, for the people, ' +
+  'shall not perish from the earth.';
+
+longestSentence(longText);
+// Four score and seven years ago our fathers brought forth on this continent a new nation, conceived in liberty, and dedicated to the proposition that all men are created equal.
+//
+// The longest sentence has 30 words.
+
+longestSentence(longerText);
+// It is rather for us to be here dedicated to the great task remaining before us -- that from these honored dead we take increased devotion to that cause for which they gave the last full measure of devotion -- that we here highly resolve that these dead shall not have died in vain -- that this nation, under God, shall have a new birth of freedom -- and that government of the people, by the people, for the people, shall not perish from the earth.
+//
+// The longest sentence has 86 words.
+
+
+// TRY DOING THIS PROBLEM AGAIN, BUT USING REDUCE
+function longestSentenceReduceApproach(str) {
+  let sentences = str.match(/\S.*?[!?.]/g);
+
+  const res = sentences.reduce(
+    function (pv, sentence) {
+      const length = sentence.split(' ').length;
+      if (length > pv.length) {
+        pv.length = length;
+        pv.sentence = sentence;
+      }
+      return pv;
+    },
+    {length: 0, sentence: ""});
+  console.log('\n');
+  console.log(res.sentence);
+  console.log(`The longest sentence has ${res.length} words.`);
+}

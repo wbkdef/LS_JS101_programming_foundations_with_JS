@@ -120,3 +120,112 @@ diamond(9);
 //   *****
 //    ***
 //     *
+
+
+console.log(`\n Now I Know My ABCs - https://launchschool.com/exercises/d219156d`);
+// __PEDAC__, as per:
+// * https://launchschool.com/lessons/60e10aa5/assignments/73c01de6
+// * https://medium.com/launch-school/solving-coding-problems-with-pedac-29141331f93f
+// __P__:
+//   input: A string (the word to check if can spell)
+//   output: true/false, whether can spell a word with the blocks.
+//   signature: isBlockWord(word) => Boolean
+//   Rules:
+//     Explicit:
+//       - Can only use 1 letter from each block and can only use each block once.
+//       - Returns true if can spell with the blocks, else false
+//     Implicit:
+//       - The function knows internally what blocks it has (an array of arrays?).
+//       - Return true if empty word?
+// __E__:
+//   *Given*
+// __D/A__ - Pseudocode for the data structures and algorithms to use:
+//   Create a function that returns true/false given both the blocks and the word
+//   Have it use all possible blocks to spell the first letter, recursively
+//      calling itself for each such block, with the block and the first
+//      letter removed in the recursive call.  Return true if any
+//      of the recursive calls work.
+//   The base case is true if the word is the empty string.
+
+// __D/A__ TRY 2 - Pseudocode for the data structures and algorithms to use:
+//   From the discussion, a letter never occurrs twice, so
+//     Store the blocks as an array of arrays
+//     Iterate through the characters of the word.
+//       If there's a block containing the character, remove it.
+//       Otherwise return 'false'
+//     Return true.
+
+function isBlockWord(word) {
+  let blocks = [['B', 'O'], ['X', 'K'], ['D', 'Q'], ['C', 'P'], ['N', 'A'], ['G', 'T'], ['R', 'E'],
+    ['F', 'S'], ['J', 'W'], ['H', 'U'], ['V', 'I'], ['L', 'Y'], ['Z', 'M']];
+  for (const char of word.toUpperCase()) {
+    // console.log(`char: ${char}, blocks.length: ${blocks.length}`);
+    // const util = require('util');
+    // console.log(util.inspect(blocks, { showHidden: false, depth: null, colors: true }));
+    
+    let blockUsed = false;
+    for (let ind = 0; ind < blocks.length; ind++) {
+      if (blocks[ind].includes(char)) {
+        blockUsed = true;
+        blocks.splice(ind, 1);
+        break;
+      }
+    }
+    if (!blockUsed) {
+      return false;
+    }
+  }
+  return true;
+}
+
+console.log(isBlockWord('BATCH') === true);
+console.log(isBlockWord('BBACH') === false);
+console.log(isBlockWord('BUTCH') === false);
+console.log(isBlockWord('jest') === true);
+console.log(isBlockWord('floW') === true);
+console.log(isBlockWord('APPLE') === false);
+console.log(isBlockWord('apple') === false);
+console.log(isBlockWord('apPLE') === false);
+console.log(isBlockWord('Box') === false);
+
+
+console.log(`\n Seeing Stars - https://launchschool.com/exercises/e41ecf03`);
+// __PEDAC__, as per:
+// * https://launchschool.com/lessons/60e10aa5/assignments/73c01de6
+// * https://medium.com/launch-school/solving-coding-problems-with-pedac-29141331f93f
+// __P__:
+//   input: An odd integer
+//   output: log an 8-point star with '*' character
+//   signature: star(int) => undefined
+//   Rules:
+//     Explicit:
+//       - input is always an odd integer `n`
+//       - `n` >= 7 always
+//       - console.log the shape
+//     Implicit:
+//       - have '*' along the horizontals and diagonals of `n`
+// __E__:
+//   *Given*
+// __D/A__ - Pseudocode for the data structures and algorithms to use:
+//   For each row:
+//     Create an array of spaces ' '
+//     Change to '*' at the correct locations (there's a pattern)
+//     log the characters joined
+
+function star(size) {
+  const middleInd = Math.floor(size / 2);
+  for (let row = 0; row < size; row++) {
+    if (row === middleInd) {
+      console.log('*'.repeat(size));
+    } else {
+      let chars = Array(size).fill(' ');
+      chars[row] = '*';
+      chars[size - 1 - row] = '*';
+      chars[middleInd] = '*';
+      console.log(chars.join(''));
+    }
+  }
+}
+
+star(7);
+star(9);

@@ -303,3 +303,77 @@ function wordToDigit(sentence) {
 console.log(wordToDigit('Please call me at five five five one two three four. Thanks.'));
 console.log(wordToDigit('The weight is done. 4four five'));
 // "Please call me at 5 5 5 1 2 3 4. Thanks."
+
+
+console.log(`\n ------------ Fibonacci Numbers (Recursion) ------------ `);
+// __PEDAC__, as per:
+// __P__:
+//   input: int
+//   output: int
+//   signature: fibonacci(nth) => fibNum
+//   Rules:
+//     Explicit:
+//       - fibonacci(1) === fibonacci(2) === 1
+//       - fibonacci(n) === fibonacci(n-1) + fibonacci(n-2)
+//     Implicit:
+//       - arguments will be +ve integers
+// __E__:
+//   *Given*
+// __D/A__ - Pseudocode for the data structures and algorithms to use:
+//   Return 1 if nth <= 2
+//   return fibonacci(n-1) + fibonacci(n-2) otherwise
+
+function fibonacci(num) {
+  if (num <= 2) {
+    return 1;
+  }
+  return fibonacci(num - 1) + fibonacci(num - 2);
+}
+
+console.log(fibonacci(1));       // 1
+console.log(fibonacci(2));       // 1
+console.log(fibonacci(3));       // 2
+console.log(fibonacci(4));       // 3
+console.log(fibonacci(5));       // 5
+console.log(fibonacci(12));      // 144
+console.log(fibonacci(20));      // 6765
+
+
+function fibonacci2(num) {
+  let fibs = [0, 1];
+  for (let ind = 2; ind <= num; ind++) {
+    fibs.push(fibs[ind - 1] + fibs[ind - 2]);
+  }
+  return fibs[num];
+}
+
+console.log(fibonacci2(1));       // 1
+console.log(fibonacci2(2));       // 1
+console.log(fibonacci2(3));       // 2
+console.log(fibonacci2(4));       // 3
+console.log(fibonacci2(5));       // 5
+console.log(fibonacci2(12));      // 144
+console.log(fibonacci2(20));      // 6765
+console.log(fibonacci2(50));       // 12586269025
+console.log(fibonacci2(75));       // 2111485077978050
+
+
+console.log(`\n ------------ Fibonacci Numbers (Caching) ------------ `);
+// let cache = {};
+fibonacciMem.cache = {0: 0, 1: 1};
+function fibonacciMem(num) {
+  if (!fibonacciMem.cache.hasOwnProperty(num)) {
+    fibonacciMem.cache[num] = fibonacciMem(num - 1) + fibonacciMem(num - 2);
+  }
+  return fibonacciMem.cache[num];
+}
+
+console.log(fibonacciMem(1));       // 1
+console.log(fibonacciMem(2));       // 1
+console.log(fibonacciMem(3));       // 2
+console.log(fibonacciMem(4));       // 3
+console.log(fibonacciMem(5));       // 5
+console.log(fibonacciMem(12));      // 144
+console.log(fibonacciMem(20));      // 6765
+console.log(fibonacciMem(50));       // 12586269025
+console.log(fibonacciMem(75));       // 2111485077978050

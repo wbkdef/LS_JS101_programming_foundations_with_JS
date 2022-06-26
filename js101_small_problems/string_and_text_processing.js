@@ -180,13 +180,76 @@ console.log(staggeredCase('ignore 77 the 4444 numbers'));   // "IgNoRe 77 ThE 44
 console.log(staggeredCase(''));   // ""
 console.log(staggeredCase('r'));   // "R"
 
-// P:
-//   input: p
-//   output: 
-//   Rules:
-//     Explicit:
-//       - 
-//       - 
-//     Implicit:
-//       - RULE1
-//       - RULE2
+
+console.log(`\n --------------- Staggered Caps (Part 2) ---------------`);
+function staggeredCase2(str) {
+  let staggeredLetters = [];
+  let capitalize = true;
+  for (const char of str) {
+    if (/[a-z]/i.test(char)) {
+      staggeredLetters.push(
+        capitalize ? char.toUpperCase() : char.toLowerCase());
+      capitalize = !capitalize;
+    } else {
+      staggeredLetters.push(char);
+    }
+  }
+  return staggeredLetters.join('');
+}
+
+console.log(staggeredCase2("I Love Launch School!"));
+console.log(staggeredCase2("ALL CAPS"));
+console.log( staggeredCase2("ignore 77 the 444 numbers"));
+
+console.log(staggeredCase2("I Love Launch School!") === "I lOvE lAuNcH sChOoL!");
+console.log(staggeredCase2("ALL CAPS") === "AlL cApS");
+console.log(
+  staggeredCase2("ignore 77 the 444 numbers") === "IgNoRe 77 ThE 444 nUmBeRs"
+);
+
+
+console.log(`\n --------------- How long are you? ---------------`);
+function wordLengths(str) {
+  if (!str) {
+    return [];
+  }
+  return str.split(' ').map(word => `${word} ${word.length}`);
+}
+console.log(wordLengths('cow sheep chicken'));
+// ["cow 3", "sheep 5", "chicken 7"]
+
+console.log(wordLengths('baseball hot dogs and apple pie'));
+// ["baseball 8", "hot 3", "dogs 4", "and 3", "apple 5", "pie 3"]
+
+console.log(wordLengths("It ain't easy, is it?"));
+// ["It 2", "ain't 5", "easy, 5", "is 2", "it? 3"]
+
+console.log(wordLengths('Supercalifragilisticexpialidocious'));
+// ["Supercalifragilisticexpialidocious 34"]
+
+console.log(wordLengths(''));      // []
+console.log(wordLengths());        // []
+
+
+console.log(`\n --------------- Search Word (Part 1) ---------------`);
+const text = 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?';
+// function searchWord(word, txt) {
+//   return txt.toLowerCase().split(' ').filter(wrd => wrd === word.toLowerCase()).length;
+// }
+function searchWord(word, txt) {
+  const re = RegExp(`\\b${word}\\b`, 'gi');
+  const matches = txt.match(re);
+  return (matches || []).length;
+}
+console.log(searchWord('sed', text));      // 3
+
+
+console.log(`\n --------------- Search Word (Part 2) ---------------`);
+// const text = 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Sed quis autem vel est, iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur blasedbla?';
+function searchWord2(word, txt) {
+  const re = RegExp(`\\b${word}\\b`, 'gi');
+  return txt.replace(re, `**${word.toUpperCase()}**`);
+}
+console.log(searchWord2('sed', text));
+// returns
+// "**SED** ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, **SED** quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, **SED** quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? **SED** quis autem vel est, iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur blasedbla?"
